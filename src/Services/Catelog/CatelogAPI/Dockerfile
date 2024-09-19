@@ -10,6 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Catelog/CatelogAPI/CatelogAPI.csproj", "Services/Catelog/CatelogAPI/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "./Services/Catelog/CatelogAPI/CatelogAPI.csproj"
 COPY . .
 WORKDIR "/src/Services/Catelog/CatelogAPI"
