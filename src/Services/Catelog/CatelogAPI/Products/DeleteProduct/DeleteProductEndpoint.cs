@@ -1,6 +1,4 @@
-﻿using CatelogAPI.Products.UpdateProduct;
-
-namespace CatelogAPI.Products.DeleteProduct;
+﻿namespace CatelogAPI.Products.DeleteProduct;
 //public record DeleteProductResponse(Guid Id);
 public record DeleteProductResponse(bool IsSuccess);
 
@@ -14,7 +12,7 @@ public class DeleteProductEndpoint : ICarterModule
             var response = result.Adapt<DeleteProductResponse>();
             return Results.Ok(response);
         })
-        .WithName("DeleteProduct")
+        //.WithName("DeleteProduct")
         .Produces<DeleteProductResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Delete Product")
