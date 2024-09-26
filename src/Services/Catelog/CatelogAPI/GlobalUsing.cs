@@ -8,3 +8,7 @@ global using CatelogAPI.Exceptions;
 global using BuildingBlocks.Exceptions;
 global using FluentValidation;
 global using BuildingBlocks.Behaviors;
+global using CatelogAPI.Data;
+global using BuildingBlocks.Exceptions.Handler;
+global using Marten.Pagination;
+global using HealthChecks.UI.Client;

@@ -1,6 +1,6 @@
-using BuildingBlocks.Exceptions.Handler;
-
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.AddServiceDefaults();
 
 //Add services to the container.
 builder.Services.AddCarter();
@@ -18,16 +18,29 @@ builder.Services.AddCarter();
 
 builder.Services.AddMarten(opts =>
 {
-    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
-}).UseDirtyTrackedSessions();
+    opts.Connection(builder.Configuration.GetConnectionString("CatalogConnection")!);
+}).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("CatalogConnection")!);
+
 var app = builder.Build();
+
+//app.MapDefaultEndpoints();
 
 //configure the HTTP requet pipeline.
 app.MapCarter();
 
 app.UseExceptionHandler(options => { });
-   
+
+app.UseHealthChecks("/health",
+    new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });   
 app.Run();

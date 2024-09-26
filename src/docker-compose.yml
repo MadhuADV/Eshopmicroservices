@@ -8,3 +8,17 @@ services:
       dockerfile: Services/Catelog/CatelogAPI/Dockerfile
     ports:
     - 8080:80
+
+# version: '3.4'
+ 
+# services:
+#     catalogdb:
+#         image: postgres
+#     catalog.api:
+#       image: ${DOCKER_REGISTRY-}catalogapi
+#       build:
+#         context: .
+#         dockerfile: Catalog.API/Dockerfile
+ 
+# volumes:
+#     postgres_catalog:
